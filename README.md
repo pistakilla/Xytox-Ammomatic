@@ -1,5 +1,5 @@
 # Xytox Ammomatic
-Xytox Ammomatic Allows players to buy ammo for weapons. This includes Pack-A-Punched weapons too. This mod was inspired by the cut perk machine from waw known by the same name. Great for servers and coop matches!
+Xytox Ammomatic allows players to buy ammo for weapons. This includes Pack-A-Punched weapons too. This mod was inspired by the cut perk machine from waw known by the same name. Great for servers and coop matches!
 
 # Features
 * Ammomatic machines in all the maps (see locations below)

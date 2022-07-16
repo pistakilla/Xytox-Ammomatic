@@ -24,6 +24,10 @@ Xytox Ammomatic Allows players to buy ammo for weapons. This includes Pack-A-Pun
 * **Shi No Numa** - next to spawn room.
 * **Der Riese** - In the furnace room.
 
+!["Five"](https://cdn.discordapp.com/attachments/675464651248762933/997916394324754532/five.png?width=978&height=550)
+!["Moon"](https://cdn.discordapp.com/attachments/675464651248762933/997916395041992834/moon.png?width=978&height=550)
+!["Natch"](https://cdn.discordapp.com/attachments/675464651248762933/997916393859203092/natch.png?width=978&height=550)
+
 # Installation
 Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/releases/download/1.0/xytox_ammomatic_v1.0.zip) and extract contents to `%localappdata%\Plutonium\storage\t5`
 

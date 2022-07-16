@@ -25,7 +25,7 @@ Xytox Ammomatic Allows players to buy ammo for weapons. This includes Pack-A-Pun
 * **Der Riese** - In the furnace room.
 
 # Installation
-Download the latest release and extract contents to `%localappdata%\Plutonium\storage\t5`
+Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/releases/download/1.0/xytox_ammomatic_v1.0.zip) and extract contents to `%localappdata%\Plutonium\storage\t5`
 
 # Credits
 * Soliderror for helping me with the world at war coords.

@@ -6,6 +6,13 @@ Xytox Ammomatic allows players to buy ammo for weapons. This includes Pack-A-Pun
 * Blacklisted weapons (weapons that are not allowed to purchase ammo for)
 * Dvar customizable - able to customize the price of Ammomatic machines as well as to enable or disable it.
 
+## Blacklisted weapons:
+* Raygun 
+* Thundergun
+* Winter's Howl
+* Wunderwaffe
+* Mustang and Sally
+
 # Locations
 
 ## Black Ops 1 Maps

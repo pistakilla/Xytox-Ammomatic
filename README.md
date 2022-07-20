@@ -12,6 +12,8 @@ Xytox Ammomatic allows players to buy ammo for weapons. This includes Pack-A-Pun
 * Winter's Howl
 * Wunderwaffe
 * Mustang and Sally
+* V-R11
+* Scavenger
 
 # Locations
 

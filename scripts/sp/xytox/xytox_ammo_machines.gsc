@@ -81,7 +81,9 @@ dispense_ammo()
 				who GetCurrentWeapon() == "freezegun_zm" ||
 				who GetCurrentWeapon() == "tesla_gun_zm" ||
 				who GetCurrentWeapon() == "tesla_gun_upgraded_zm" ||
-				who GetCurrentWeapon() == "m1911_upgraded_zm"
+				who GetCurrentWeapon() == "m1911_upgraded_zm" ||
+				who GetCurrentWeapon() == "humangun_zm" ||
+				who GetCurrentWeapon() == "sniper_explosive_zm" 
 				)
 			{
 				while( who UseButtonPressed() )

@@ -40,9 +40,9 @@ Xytox Ammomatic allows players to buy ammo for weapons. This includes Pack-A-Pun
 !["Natch"](https://cdn.discordapp.com/attachments/675464651248762933/997916393859203092/natch.png?width=978&height=550)
 
 # Installation
-Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/releases/download/1.0/xytox_ammomatic_v1.0.zip) and extract contents to `%localappdata%\Plutonium\storage\t5`
+Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/releases/download/1.1/xytox_ammomatic_v1.1.zip) and extract contents to `%localappdata%\Plutonium\storage\t5`
 
-### Default Settings
+## Default Settings
 If you want to use default settings in the console type in `exec ammo_config.cfg` then restart the match.
 
 # Credits

@@ -83,9 +83,15 @@ dispense_ammo()
 				who GetCurrentWeapon() == "tesla_gun_upgraded_zm" ||
 				who GetCurrentWeapon() == "m1911_upgraded_zm" ||
 				who GetCurrentWeapon() == "humangun_zm" ||
+				who GetCurrentWeapon() == "humangun_upgraded_zm" ||
 				who GetCurrentWeapon() == "sniper_explosive_zm" ||
+				who GetCurrentWeapon() == "sniper_explosive_upgraded_zm" ||
 				who GetCurrentWeapon() == "shrink_ray_zm" ||
+				who GetCurrentWeapon() == "shrink_ray_upgraded_zm" ||
 				who GetCurrentWeapon() == "microwavegun_zm" ||
+				who GetCurrentWeapon() == "microwavegun_upgraded_zm" ||
+				who GetCurrentWeapon() == "microwavegundw_zm" ||
+				who GetCurrentWeapon() == "microwavegundw_upgraded_zm"
 				)
 			{
 				while( who UseButtonPressed() )

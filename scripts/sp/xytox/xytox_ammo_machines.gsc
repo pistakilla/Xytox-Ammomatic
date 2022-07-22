@@ -29,6 +29,11 @@ XytoxAmmomatic( origin, angles ) //Orginal code from ZeiiKeN. Edited to make coo
 	{
 		trig setHintString("Press ^3&&1^7 to Buy Ammo [Cost: " + level.xytox_ammo + "]");
 	}
+	else if( level.script == "zombie_moon" )
+	{
+		trig SetHintString( &"ZOMBIE_NEED_POWER" );
+		level waittill("doubletap_on");
+	}
 	else
 	{
 		trig SetHintString( &"ZOMBIE_NEED_POWER" );
@@ -99,7 +104,7 @@ dispense_ammo()
 					wait 0.05;
 				}
 
-				who iPrintLn("You cannot buy ammo for a ^0blacklisted^7 weapon!"); //Uncomment this if you want to print a message for players
+				who iPrintLn("You cannot buy ammo for a ^0blacklisted^7 weapon!"); //Comment this if you want to print a message for players
 				who playSound("zmb_no_cha_ching");
 				continue;
 			}

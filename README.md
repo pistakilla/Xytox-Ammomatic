@@ -42,10 +42,17 @@ Xytox Ammomatic allows players to buy ammo for weapons. This includes Pack-A-Pun
 # Installation
 Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/releases/download/1.2/xytox_ammomatic_v1.2.zip) and extract contents to `%localappdata%\Plutonium\storage\t5`
 
+# Dvars
+*Requires a match restart to take affect*
+
+`xytox_ammo_cost` - Value of the Ammomattic machine cost. Default: 2500.
+
+`xytox_enable_ammo` - Enabled Ammomatic machines. 1 = On (default). 0 = Off.
+
 ## Default Settings
 If you want to use default settings in the console type in `exec ammo_config.cfg` then restart the match.
 
 # Credits
 * Soliderror for helping me with the world at war coords.
-* Much thanks to Cahz, referenced some code from Zombies++ for BO2
+* Much thanks to Cahz, referenced some code from Zombies++ for BO2.
 

@@ -6,6 +6,7 @@
 xytox_ammo_machine_init()
 {
 	level thread xytox_vars();
+	level thread blacklisted_weapons();
 	level thread init_XytoxAmmomatic();
 	level thread thread_restarter(); //Important for servers!
 }
@@ -29,15 +30,10 @@ XytoxAmmomatic( origin, angles ) //Orginal code from ZeiiKeN. Edited to make coo
 	{
 		trig setHintString("Press ^3&&1^7 to Buy Ammo [Cost: " + level.xytox_ammo + "]");
 	}
-	else if( level.script == "zombie_moon" )
-	{
-		trig SetHintString( &"ZOMBIE_NEED_POWER" );
-		level waittill("doubletap_on");
-	}
 	else
 	{
 		trig SetHintString( &"ZOMBIE_NEED_POWER" );
-		level waittill("juggernog_on");
+		flag_wait("power_on");
 	}
 	
 	trig setHintString("Press ^3&&1^7 to Buy Ammo [Cost: " + level.xytox_ammo + "]");
@@ -61,73 +57,58 @@ dispense_ammo()
       	ammocount = who getammocount(weapon);
       	clipcount = who getweaponammoclip(weapon);
       	maxammo = weaponmaxammo(weapon);
-		
-		if( who UseButtonPressed() && (maxammo <= ammocount - clipcount) )
+
+		if( who UseButtonPressed() && !(who.score >= level.xytox_ammo) ) //Not enough points
+		{
+			while( who UseButtonPressed() )
+			{
+				wait 0.05;
+			}
+
+			who playSound("zmb_no_cha_ching");
+			who maps\_zombiemode_audio::create_and_play_dialog( "general", "door_deny", undefined, 1 );
+			continue;
+		}	
+
+		if( who UseButtonPressed() && (maxammo <= ammocount - clipcount) ) //Full ammo
 		{
             while( who UseButtonPressed() )
 			{
 				wait 0.05;
 			}
 			who playsound("evt_perk_deny");
-            continue;
+			continue;
 		}
-		else if( who UseButtonPressed() && (who.score >= level.xytox_ammo) && !(maxammo <= ammocount - clipcount))
+		
+
+		if( who UseButtonPressed() && (who.score >= level.xytox_ammo) && !(maxammo <= ammocount - clipcount)) //Buy ammo
 		{
 			while( who UseButtonPressed() )
 			{
 				wait 0.05;
 			}
-			//Blacklisted weapons
-			if( who GetCurrentWeapon() == "ray_gun_zm" || 
-				who GetCurrentWeapon() == "ray_gun_upgraded_zm" ||
-				who GetCurrentWeapon() == "thundergun_zm" ||
-				who GetCurrentWeapon() == "thundergun_upgraded_zm" ||
-				who GetCurrentWeapon() == "freezegun_upgraded_zm" || 
-				who GetCurrentWeapon() == "freezegun_zm" ||
-				who GetCurrentWeapon() == "tesla_gun_zm" ||
-				who GetCurrentWeapon() == "tesla_gun_upgraded_zm" ||
-				who GetCurrentWeapon() == "m1911_upgraded_zm" ||
-				who GetCurrentWeapon() == "humangun_zm" ||
-				who GetCurrentWeapon() == "humangun_upgraded_zm" ||
-				who GetCurrentWeapon() == "sniper_explosive_zm" ||
-				who GetCurrentWeapon() == "sniper_explosive_upgraded_zm" ||
-				who GetCurrentWeapon() == "shrink_ray_zm" ||
-				who GetCurrentWeapon() == "shrink_ray_upgraded_zm" ||
-				who GetCurrentWeapon() == "microwavegun_zm" ||
-				who GetCurrentWeapon() == "microwavegun_upgraded_zm" ||
-				who GetCurrentWeapon() == "microwavegundw_zm" ||
-				who GetCurrentWeapon() == "microwavegundw_upgraded_zm"
-				)
+			
+			if(level.enable_bl == 1)
 			{
-				while( who UseButtonPressed() )
+				if( is_in_array(level.blacklisted_wep, weapon))
 				{
-					wait 0.05;
+					who iPrintLn("You cannot buy ammo for a ^0blacklisted^7 weapon!"); //Comment this if you don't want to print a message for players
+					who playSound("zmb_no_cha_ching");
 				}
-
-				who iPrintLn("You cannot buy ammo for a ^0blacklisted^7 weapon!"); //Comment this if you want to print a message for players
-				who playSound("zmb_no_cha_ching");
-				continue;
+				else
+				{
+					who givemaxammo( weapon );
+					who maps\_zombiemode_score::minus_to_player_score( level.xytox_ammo );
+					who playSound("zmb_cha_ching");
+				}
 			}
-			else
+			else if(level.enable_bl == 0)
 			{
-				while( who UseButtonPressed() )
-				{
-					wait 0.05;
-				}
-
-				who givemaxammo( who GetCurrentWeapon() );
+				who givemaxammo( weapon );
 				who maps\_zombiemode_score::minus_to_player_score( level.xytox_ammo );
 				who playSound("zmb_cha_ching");
 			}
-		}
-		else if( who UseButtonPressed() && !(who.score >= level.xytox_ammo) )
-		{
-			who playSound("zmb_no_cha_ching");
-			who maps\_zombiemode_audio::create_and_play_dialog( "general", "door_deny", undefined, 1 );
-			while( who UseButtonPressed() )
-			{
-				wait 0.05;
-			}
+			
 		}
 	}
 }
@@ -188,8 +169,11 @@ xytox_vars()
 	//Value of the Ammomattic machine cost for all maps. Default: 2500
 	level.xytox_ammo = getDvarint( "xytox_ammo_cost");
 	
-	//Enabled Ammomatic machines. Default: 1
+	//Enable Ammomatic machines. Default: 1
 	level.enable_xytox_ammo = getDvarint("xytox_enable_ammo");
+
+	//Enable blacklisted weapons (disables buying ammo for them). Default: 1
+	level.enable_bl = getDvarInt("xytox_enable_bl");
 }
 
 vars_check()
@@ -199,9 +183,14 @@ vars_check()
 		SetDvar("xytox_ammo_cost", 2500);
 	}
 
-	if( getDvar("xytox_enable_ammo") == "" )
+	if( getDvar("xytox_enable_ammo") == "" || getDvar("xytox_enable_ammo") >= 1)
 	{
 		setDvar("xytox_enable_ammo", 1);
+	}
+
+	if( getDvar("xytox_enable_bl") == "" || getDvar("xytox_enable_bl") >= 1)
+	{
+		setDvar("xytox_enable_bl", 1);
 	}
 }
 
@@ -214,4 +203,29 @@ thread_restarter() //In dedi servers, the trigger thread breaks in random reason
 		wait 10;
 		level notify("notifier_2");
 	}
+}
+
+blacklisted_weapons() //Thanks for INSANEMODE for helping me use arrays
+{
+	level.blacklisted_wep = [];
+
+	level.blacklisted_wep[level.blacklisted_wep.size] = "ray_gun_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "ray_gun_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "thundergun_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "thundergun_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "freezegun_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "freezegun_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "tesla_gun_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "tesla_gun_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "m1911_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "humangun_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "humangun_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "sniper_explosive_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "sniper_explosive_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "shrink_ray_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "shrink_ray_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "microwavegun_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "microwavegun_upgraded_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "microwavegundw_zm";
+	level.blacklisted_wep[level.blacklisted_wep.size] = "microwavegundw_upgraded_zm"; 
 }

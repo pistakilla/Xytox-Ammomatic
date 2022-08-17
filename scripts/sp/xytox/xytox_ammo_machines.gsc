@@ -207,7 +207,7 @@ thread_restarter() //In dedi servers, the trigger thread breaks in random reason
 
 blacklisted_weapons() //Thanks for INSANEMODE for helping me use arrays
 {
-	level.blacklisted_wep = [];
+	level.blacklisted_wep = ;
 
 	level.blacklisted_wep[level.blacklisted_wep.size] = "ray_gun_zm";
 	level.blacklisted_wep[level.blacklisted_wep.size] = "ray_gun_upgraded_zm";

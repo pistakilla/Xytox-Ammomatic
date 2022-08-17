@@ -33,7 +33,7 @@ XytoxAmmomatic( origin, angles ) //Orginal code from ZeiiKeN. Edited to make coo
 	else
 	{
 		trig SetHintString( &"ZOMBIE_NEED_POWER" );
-		
+		flag_wait("power_on");
 	}
 	
 	trig setHintString("Press ^3&&1^7 to Buy Ammo [Cost: " + level.xytox_ammo + "]");
@@ -207,7 +207,7 @@ thread_restarter() //In dedi servers, the trigger thread breaks in random reason
 
 blacklisted_weapons() //Thanks for INSANEMODE for helping me use arrays
 {
-	level.blacklisted_wep = ;
+	level.blacklisted_wep = [];
 
 	level.blacklisted_wep[level.blacklisted_wep.size] = "ray_gun_zm";
 	level.blacklisted_wep[level.blacklisted_wep.size] = "ray_gun_upgraded_zm";

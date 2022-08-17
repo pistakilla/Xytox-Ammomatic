@@ -39,19 +39,19 @@ Xytox Ammomatic allows players to buy ammo for weapons. This includes Pack-A-Pun
 !["Moon"](https://cdn.discordapp.com/attachments/675464651248762933/997916395041992834/moon.png?width=978&height=550)
 !["Natch"](https://cdn.discordapp.com/attachments/675464651248762933/997916393859203092/natch.png?width=978&height=550)
 
-# Installation
+# Installation 
 Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/releases/download/1.3/xytox_ammomatic_v1.3.zip) and extract contents to `%localappdata%\Plutonium\storage\t5`
 
-# Dvars
+# Dvars       
 *Requires a match restart to take affect*
 
 `xytox_ammo_cost` - Value of the Ammomattic machine cost. Default: 2500.
 
 `xytox_enable_ammo` - Enable Ammomatic machines. 1 = On (default). 0 = Off.
 
-`xytox_enable_bl` - Enable blacklisted weapons (disables buying ammo for them). Default: 1
+`xytox_enable_bl` - Enable blacklisted weapons (disables buying ammo for them). Default: 1         
 
-## Default Settings
+## Default Settings     
 If you want to use default settings in the console type in `exec ammo_config.cfg` then restart the match.
 
 # Credits

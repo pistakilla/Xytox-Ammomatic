@@ -95,6 +95,10 @@ dispense_ammo()
 					who iPrintLn("You cannot buy ammo for a ^0blacklisted^7 weapon!"); //Comment this if you don't want to print a message for players
 					who playSound("zmb_no_cha_ching");
 				}
+				else if(weapon != "claymore_zm" || weapon != "mine_bouncing_betty")
+				{				
+					wait 0.3;
+				}
 				else
 				{
 					who givemaxammo( weapon );
@@ -104,11 +108,17 @@ dispense_ammo()
 			}
 			else if(level.enable_bl == 0)
 			{
-				who givemaxammo( weapon );
-				who maps\_zombiemode_score::minus_to_player_score( level.xytox_ammo );
-				who playSound("zmb_cha_ching");
+				if(weapon != "claymore_zm" || weapon != "mine_bouncing_betty")
+				{
+					wait 0.3;
+				}
+				else
+				{
+					who givemaxammo( weapon );
+					who maps\_zombiemode_score::minus_to_player_score( level.xytox_ammo );
+					who playSound("zmb_cha_ching");
+				}
 			}
-			
 		}
 	}
 }

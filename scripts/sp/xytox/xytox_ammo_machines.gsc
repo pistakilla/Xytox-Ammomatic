@@ -34,9 +34,9 @@ XytoxAmmomatic( origin, angles ) //Orginal code from ZeiiKeN. Edited to make coo
 	{
 		trig SetHintString( &"ZOMBIE_NEED_POWER" );
 		flag_wait("power_on");
+		trig setHintString("Press ^3&&1^7 to Buy Ammo [Cost: " + level.xytox_ammo + "]");
 	}
 	
-	trig setHintString("Press ^3&&1^7 to Buy Ammo [Cost: " + level.xytox_ammo + "]");
 	for(;;)
 	{
 		level waittill("notifier_1");

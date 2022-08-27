@@ -95,7 +95,7 @@ dispense_ammo()
 					who iPrintLn("You cannot buy ammo for a ^0blacklisted^7 weapon!"); //Comment this if you don't want to print a message for players
 					who playSound("zmb_no_cha_ching");
 				}
-				else if(weapon != "claymore_zm" || weapon != "mine_bouncing_betty")
+				else if(weapon == "claymore_zm" || weapon == "spikemore_zm" ||weapon == "mine_bouncing_betty")
 				{				
 					wait 0.3;
 				}
@@ -108,7 +108,7 @@ dispense_ammo()
 			}
 			else if(level.enable_bl == 0)
 			{
-				if(weapon != "claymore_zm" || weapon != "mine_bouncing_betty")
+				if(weapon == "claymore_zm" || weapon == "spikemore_zm" ||weapon == "mine_bouncing_betty") 
 				{
 					wait 0.3;
 				}

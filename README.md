@@ -49,7 +49,7 @@ Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/rele
 
 `xytox_enable_ammo` - Enable Ammomatic machines. 1 = On (default). 0 = Off.
 
-`xytox_enable_bl` - Enable blacklisted weapons (disables buying ammo for them). Default: 1         
+`xytox_enable_bl` - Enable blacklisted weapons. 1 = On (Cannot purchase ammo for blacklisted weapons - Default). 0 = Off (Can purchase ammo for any weapon).
 
 ## Default Settings     
 If you want to use default settings in the console type in `exec ammo_config.cfg` then restart the match.

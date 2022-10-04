@@ -101,7 +101,7 @@ dispense_ammo()
 					buyer playSound("zmb_cha_ching");
 				}
 			}
-			else if(level.enable_bl == 0) //Blacklisted weapons dsiabled
+			else if(level.enable_bl == 0) //Blacklisted weapons disabled
 			{
 				if(weapon == "claymore_zm" || weapon == "spikemore_zm" || weapon == "mine_bouncing_betty") 
 				{

@@ -52,6 +52,7 @@ Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/rele
 `xytox_enable_bl` - Enable blacklisted weapons.
 
 1 = On (Cannot purchase ammo for blacklisted weapons - Default).
+
 0 = Off (Can purchase ammo for any weapon).
 
 ## Default Settings     

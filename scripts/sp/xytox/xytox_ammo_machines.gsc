@@ -4,6 +4,7 @@
 
 xytox_ammo_machine_init()
 {
+	level._effect["revive_light"] = loadfx("misc/fx_zombie_cola_revive_on"); //Apparently Nacht Der Untoten never had this fx.
 	level thread xytox_vars();
 	level thread blacklisted_weapons();
 	if( level.enable_xytox_ammo == 1 )
@@ -26,15 +27,11 @@ XytoxAmmomatic( origin, angles ) //Orginal code from ZeiiKeN. Edited to make coo
 	
 	trig = spawn("trigger_radius", origin, 1, 25, 25);
 	trig SetCursorHint( "HINT_NOICON" );
+	trig SetHintString( &"ZOMBIE_NEED_POWER" );
 	
-	if( level.script == "zombie_cod5_prototype" || level.script == "zombie_cod5_sumpf" )
+	if( "zombie_cod5_prototype" != level.script && "zombie_cod5_sumpf" != level.script )
 	{
-		wait 0.3;
-	}
-	else
-	{
-		trig SetHintString( &"ZOMBIE_NEED_POWER" );
-		flag_wait("power_on");
+		level flag_wait( "power_on" );
 	}
 
 	trig setHintString("Press ^3&&1^7 to buy ammo [Cost: " + level.xytox_ammo + "]");

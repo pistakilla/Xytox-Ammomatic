@@ -5,6 +5,7 @@ Xytox Ammomatic allows players to buy ammo for weapons. This includes Pack-A-Pun
 * Ammomatic machines in all the maps (see locations below)
 * Blacklisted weapons (weapons that are not allowed to purchase ammo for)
 * Dvar customizable (check below for list of dvars for this mod).
+* *NEW* Fire Sale price! During Fire Sale, ammo price will be reduced significantly!
 
 ## Blacklisted weapons:
 * Raygun 
@@ -47,13 +48,15 @@ Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/rele
 
 `xytox_ammo_cost` - Value of the Ammomattic machine cost. Default: 2500.
 
-`xytox_enable_ammo` - Enable Ammomatic machines. 1 = On (default). 0 = Off.
+`xytox_enable_ammo` - Enable Ammomatic machines. 
+    0 = Off.
+    1 = On (default)
 
 `xytox_enable_bl` - Enable blacklisted weapons.
+    1 = On (Cannot purchase ammo for blacklisted weapons - Default).
+    0 = Off (Can purchase ammo for any weapon).
 
-1 = On (Cannot purchase ammo for blacklisted weapons - Default).
-
-0 = Off (Can purchase ammo for any weapon).
+`xytox_fire_sale_cost` - Value of ammo price when Fire Sale is enabled. Default: 30
 
 ## Default Settings     
 If you want to use default settings in the console type in `exec ammo_config.cfg` then restart the match.

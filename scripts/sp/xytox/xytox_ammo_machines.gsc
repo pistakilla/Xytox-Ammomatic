@@ -7,23 +7,24 @@ xytox_ammo_machine_init()
 	level._effect["revive_light"] = loadfx("misc/fx_zombie_cola_revive_on"); //Apparently Nacht Der Untoten never had this fx.
 	level thread xytox_vars();
 	level thread blacklisted_weapons();
-	if( level.enable_xytox_ammo == 1 )
+	if( level.enable_xytox_ammo )
 	{
 		level thread init_XytoxAmmomatic();
 	}
-	level thread thread_restarter( 10 ); //Important for servers!
+	level thread xytox_ammo_fire_sale();
+	level thread thread_restarter( 5 ); //Important for servers!
 }
 
 XytoxAmmomatic( origin, angles ) //Orginal code from ZeiiKeN. Edited to make cool ammomatic machine.
 {
 	collision = spawn("script_model", ( (origin[0]), (origin[1]), (origin[2] + 50)) ); //adding 50 units on Z cord to prevent people from jumping on top of this using some exploit
     collision setModel("collision_geo_32x32x128");
-    collision rotateTo(angles, .1);
+    collision.angles = angles;
 	collision hide();
 
 	vender_ammo = spawn( "script_model", origin );
 	vender_ammo setModel( "zombie_vending_doubletap_on" );
-	vender_ammo rotateTo(angles, .1);
+	vender_ammo.angles = angles;
 	
 	trig = spawn("trigger_radius", origin, 1, 25, 25);
 	trig SetCursorHint( "HINT_NOICON" );
@@ -34,14 +35,24 @@ XytoxAmmomatic( origin, angles ) //Orginal code from ZeiiKeN. Edited to make coo
 		level flag_wait( "power_on" );
 	}
 
-	trig setHintString("Press ^3&&1^7 to buy ammo [Cost: " + level.xytox_ammo + "]");
+	trig thread update_hintstring(); //updates the hintstring prompt for the player when fire sale is on
 	vender_ammo thread maps\_zombiemode_perks::perk_fx( "revive_light" ); //put it blue because some idiot might think it's the actual doubletap machine
+	vender_ammo thread prepare_fire_sale_music(); //Plays the little funny fire sale song for the ammomatic
 
 	for(;;)
 	{
 		level waittill("notifier_1");
-
+		
 		trig thread dispense_ammo();
+	}
+}
+
+update_hintstring()
+{
+	while(1)
+	{
+		self setHintString("Press ^3&&1^7 to buy ammo [Cost: " + level.xytox_ammo + "]");
+		wait 0.05;
 	}
 }
 
@@ -115,11 +126,8 @@ dispense_ammo()
 	}
 }
 
-
 init_XytoxAmmomatic() //Thanks for Soliderror for helping pick the spots in the waw maps
 {
-	
-	//BO1 Maps
 	if(level.script == "zombie_theater") //Kino Der Toten
 	{
 		level thread XytoxAmmomatic(  (-818, -1049, 80), (0, -90, 0) ); //In fire trap room, behind trap switch
@@ -164,8 +172,6 @@ init_XytoxAmmomatic() //Thanks for Soliderror for helping pick the spots in the 
 
 xytox_vars()
 {
-	vars_check(); //Checks the vars value, defaults them if not changed.
-
 	//Value of the Ammomattic machine cost for all maps. Default: 2500
 	level.xytox_ammo = getDvarint( "xytox_ammo_cost");
 	
@@ -174,6 +180,11 @@ xytox_vars()
 
 	//Enable blacklisted weapons (disables buying ammo for them). Default: 1
 	level.enable_bl = getDvarInt("xytox_enable_bl");
+
+	//Value of ammo price when Fire Sale is enabled. Default: 30
+	level.xytox_ammo_fs = getDvarInt("xytox_fire_sale_cost");
+
+	level thread vars_check(); //Checks the vars value, defaults them if not changed.
 }
 
 vars_check()
@@ -191,6 +202,51 @@ vars_check()
 	if( getDvar("xytox_enable_bl") == "" || getDvar("xytox_enable_bl") >= 1)
 	{
 		setDvar("xytox_enable_bl", 1);
+	}
+
+	if( getDvar("xytox_fire_sale_cost") == "" )
+	{
+		setDvar("xytox_fire_sale_cost", 30);
+	}
+}
+
+xytox_ammo_fire_sale()
+{
+	xytox_ammo_price = spawnStruct();
+	xytox_ammo_price.org_price = level.xytox_ammo;
+	xytox_ammo_price.fs_price = level.xytox_ammo_fs;
+
+	while(1)
+	{
+		if(level.zombie_vars["zombie_powerup_fire_sale_on"] == true)
+		{
+			level.xytox_ammo = xytox_ammo_price.fs_price;
+		}
+		else
+		{
+			level.xytox_ammo = xytox_ammo_price.org_price;
+		}
+		wait 0.05;
+	}
+}
+
+prepare_fire_sale_music()
+{
+	while(1)
+	{
+		level waittill("powerup fire sale");
+
+		if( is_true(level.player_4_vox_override ))
+		{
+			self playloopsound ("mus_fire_sale_rich");
+		}
+		else
+		{
+			self playloopsound ("mus_fire_sale");
+		}
+
+		level waittill ("firesale_over");
+		self stoploopsound ();
 	}
 }
 

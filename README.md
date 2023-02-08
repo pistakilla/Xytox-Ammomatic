@@ -49,12 +49,16 @@ Download the [latest release](https://github.com/pistakilla/Xytox-Ammomatic/rele
 `xytox_ammo_cost` - Value of the Ammomattic machine cost. Default: 2500.
 
 `xytox_enable_ammo` - Enable Ammomatic machines. 
+
     0 = Off.
+    
     1 = On (default)
 
 `xytox_enable_bl` - Enable blacklisted weapons.
-    1 = On (Cannot purchase ammo for blacklisted weapons - Default).
+
     0 = Off (Can purchase ammo for any weapon).
+
+    1 = On (Cannot purchase ammo for blacklisted weapons - Default).
 
 `xytox_fire_sale_cost` - Value of ammo price when Fire Sale is enabled. Default: 30
 
